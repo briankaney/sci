@@ -275,7 +275,7 @@ function drawCanvasWedge(x,y,a1,a2,radius,style,canvas_id,ctx)
   ctx.moveTo(x,y);
   ctx.arc(x,y,radius,-1*a1*Math.PI/180,-1*a2*Math.PI/180,true);
   ctx.lineTo(x,y);
-  if(style.fill_color!='none') { ctx.fill(); ]
+  if(style.fill_color!='none') { ctx.fill(); }
   if(style.stroke_color!='none') { ctx.stroke(); }
 }
 
