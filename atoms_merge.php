@@ -13,7 +13,7 @@
     print "  atoms_merge.php atom_base_dir list_file path/output_file\n\n";
 
     print "Examples:\n";
-    print "  ./atoms_merge.php sci-atoms/ sci_base.prj sci-compounds/sci_base.js\n\n";
+    print "  ./atoms_merge.php sci-atoms/ sci_general.prj sci-compounds/sci_general.js\n\n";
 
     print "  The library pieces (the atoms) all need to be in the same directory.  Which is\n";
     print "  the first argument.  The second argument is a text file with a list (one per line)\n";

@@ -13,7 +13,7 @@
     print "  atoms_divide.php path/list_file path/input_file\n\n";
 
     print "Examples:\n";
-    print "  ./atoms_divide.php sci-atoms/ sci_base.prj ./sci-compounds/sci_base.js\n\n";
+    print "  ./atoms_divide.php sci-atoms/ sci_general.prj ./sci-compounds/sci_general.js\n\n";
 
     print "  Reverse of the 'atoms_merge.php' script.  A single input to split is given\n";
     print "  (3rd argument).  The 1st and 2nd arguments are the base directory for the\n";
