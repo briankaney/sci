@@ -1,0 +1,8 @@
+Just a placeholder.
+
+Need to split into 'atoms'.  The current sci_graph.js is a compound without atoms.
+
+I mean, it has chunks that correspond to old libs and likely atoms, but it needs 
+a lot of clean-up.  False starts and duplication.  It needs to start being cleanly 
+pulled apart.
+
