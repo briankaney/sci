@@ -1,0 +1,157 @@
+function screenPoint()  //-- () or (x,y)
+screenPoint.prototype.setValue = function()  //-- (pt) or (x,y)
+function distBetweenScrPts(pt1,pt2)
+function getMouseScreenX(element_id,e)
+function getMouseScreenY(element_id,e)
+function getMouseScreenPoint(element_id,e)
+function rectDimensions()  //--rectDimensions() or rectDimensions(width,height)
+rectDimensions.prototype.setValue = function()  //--setValue(dims) or setValue(width,height)
+function hotRectangles(num_hotspots)
+hotRectangles.prototype.setAllActive = function() {
+hotRectangles.prototype.setConstWidth = function(const_width) {
+hotRectangles.prototype.setConstHeight = function(const_height) {
+hotRectangles.prototype.setConstLeft = function(const_left) {
+hotRectangles.prototype.setConstTop = function(const_top) {
+hotRectangles.prototype.setConstDimensions = function(const_width,const_height) {
+hotRectangles.prototype.packLeftFromWidths = function() {
+hotRectangles.prototype.setAsBlockOfRows = function(tot_left_x,tot_top_y,num_row,width,height)
+hotRectangles.prototype.setAsBlockOfColumns = function(tot_left_x,tot_top_y,num_col,width,height)
+hotRectangles.prototype.getIndex = function(pt)
+function shiftColor(color) {   //---no other occurrence in this lib
+function timeString(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8)
+function numDaysInMonth(year,month)
+function numDaysInYear(year)
+function dayOfWeek(year,month,day)
+function dayName(day_index,abbr_mode)
+function monthName(month,abbr_mode)
+function time()
+time.prototype.equateToTime = function(target_time)
+time.prototype.totSecLinuxEra = function() {
+time.prototype.addSeconds = function(second_shift)
+time.prototype.addMinutes = function(minute_shift) {
+time.prototype.addHours = function(hour_shift) {
+time.prototype.addDays = function(day_shift) {
+time.prototype.numDaysInMonth = function() {
+time.prototype.numDaysInYear = function() {
+time.prototype.dayOfWeek = function() {
+time.prototype.rectifyDate = function() {
+time.prototype.confineTimeToWindow = function(start,end) {
+time.prototype.truncateToMinRes = function(min_res)
+time.prototype.spawnTime = function(time_shift,time_mode)
+time.prototype.alterTime = function(yr,mo,dy,hr,min,sec)
+time.prototype.addMonthsToYM = function(mon_shift)
+function compareTimes(time1,time2)
+function subtractTimes(time1,time2,time_mode)
+function symbolicComparison(value,mode,target)
+function boundValue(value,min,max)
+function findIndex(test_array,value) {
+function countOccurences(test_array,compare_mode,target)
+function arrayTotal(test_array,compare_mode,target)
+function arrayAverage(test_array,compare_mode,target)
+function arrayStdDev(test_array,compare_mode,target)
+function canvasClear(canvas_id)
+function drawLine(x1,y1,x2,y2,ctx)
+function drawCleanHorizLine(x1,x2,y,ctx)
+function drawCleanVertLine(x,y1,y2,ctx)
+function extendHorizLine(x,y,distance,ctx) {
+function extendVertLine(x,y,distance,ctx) {
+function shapeStyle(fill_color,stroke_color,line_width)
+shapeStyle.prototype.set = function(fill_color,stroke_color,line_width)
+function textStyle(font,text_color)
+textStyle.prototype.set = function(font,text_color)
+function drawCanvasLine(x1,y1,x2,y2,style,canvas_id,ctx)
+function drawCanvasRect(left_x,top_y,width,height,style,canvas_id,ctx)
+function drawCanvasCircle(x,y,radius,style,canvas_id,ctx)
+function drawCanvasConfinedRect(left_x,top_y,width,height,style,canvas_id)
+function drawCanvasPolygon(x,y,ctx,style,num_points)
+function drawCanvasPolygonFullList(x,y,ctx,mode,num_points)
+function labelStyle(fill_color,stroke_color,line_width,font,text_color)
+labelStyle.prototype.set = function(fill_color,stroke_color,line_width,font,text_color)
+function drawCanvasText(text,x,y,style,canvas_id,ctx)
+function drawCanvasLabel(text,x,y,x_offset,y_offset,style,canvas_id,ctx)
+function drawCanvasRectLabel(x,y,label_text,style,canvas_id,ctx)
+function drawCanvasFixedLabel(label_text,left_x,top_y,x_indent,width,height,style,canvas_id,ctx)
+function drawCanvasWedge(x,y,a1,a2,radius,style,canvas_id,ctx)
+function drawCanvasPlus(x,y,length,style,canvas_id,ctx)
+function drawCanvasX(x,y,width,height,style,canvas_id,ctx)
+function drawVerticalText(text,x,y,ctx)
+function approxFontHeight(font)
+function divStyle()
+divStyle.prototype.setPositioningAsStrings = function(left_x,top_y,mode)
+divStyle.prototype.setDimensionsAsStrings = function(width,height)
+divStyle.prototype.setPositionAsInt = function(left_x,top_y)
+divStyle.prototype.setDimensionsAsInt = function(width,height)
+divStyle.prototype.setPositionAndDimensionsAsInt = function(left_x,top_y,width,height)
+divStyle.prototype.setBackground = function(back_color,back_image)
+divStyle.prototype.setTextProperties = function(align,color,family,size,style,weight)
+divStyle.prototype.setBorder = function(corner_radius,line_thickness,line_style,line_color)
+divStyle.prototype.setPadding = function(padding)
+function DefaultSCITextButtonDivStyle(style)
+function createDiv(parent_id,child_id,style)
+function createCanvas(parent_id,pix_left,pix_top,child_id,pix_width,pix_height)   //--- (,,,,,,,back_color or back_image);
+function createLabelDiv(str,parent_id,child_id,left_x,top_y,color,font_family,font_size,font_weight)
+function createImageDiv(parent_id,child_id,left_x,top_y,width,height,back_image)
+function sciDivButton(button_id,label_string)
+  this.updateRestOfPage = function() { };
+sciDivButton.prototype.setDivColors = function(back_color,hover_color)
+sciDivButton.prototype.setDivInContainer = function(container_id,pix_left,pix_top,back_color,hover_color)
+sciDivButton.prototype.initialize = function()
+sciDivButton.prototype.textDivButtonHandler = function(e)
+function sciCheckBox(unique_base_id,state)
+  this.updateRestOfPage = function() { };
+sciCheckBox.prototype.setCheckInContainer = function(container_id,pix_left,pix_top)
+sciCheckBox.prototype.setLabelInContainer = function(container_id,pix_left,pix_top,str)
+sciCheckBox.prototype.initialize = function()
+sciCheckBox.prototype.checkBoxHandler = function(e)
+function sciDDMenu(unique_base_id,selected_option)
+  this.updateRestOfPage = function() { };
+sciDDMenu.prototype.setMenuInContainer = function(container_id,pix_left,pix_top)
+sciDDMenu.prototype.setLabelInContainer = function(container_id,pix_left,pix_top,str)
+sciDDMenu.prototype.initialize = function()
+sciDDMenu.prototype.resetSelectedOption = function(new_selected_option)
+sciDDMenu.prototype.ddMenuHandler = function(e)
+sciDDMenu.prototype.getIndexOfSelectedOption = function()
+sciDDMenu.prototype.composeDDHTML = function()
+function sciRadioButtons(unique_base_id,num_controls,selected_option)
+sciRadioButtons.prototype.setDivInContainer = function(container_id,pix_left,pix_top)
+sciRadioButtons.prototype.initialize = function()
+sciRadioButtons.prototype.resetSelectedOption = function(new_selected_option)
+sciRadioButtons.prototype.radioButtonHandler = function(e)
+sciRadioButtons.prototype.getIndexOfSelectedOption = function()
+sciRadioButtons.prototype.insertInputHTML = function()
+function singleIndexCheckSet(div_id,num_controls,index)
+singleIndexCheckSet.prototype.initialize = function()
+    this.checks[i].updateRestOfPage = function() {
+singleIndexCheckSet.prototype.evaluateIndex = function()
+function getDataPacket(format)
+getDataPacket.prototype.load = function()
+  request.onload = function () { this.parseRequest(request.responseText); }.bind(this);
+getDataPacket.prototype.parseRequest = function(return_string)
+function sciSingleSlider(unique_base_id,orientation,num_pixels)
+  this.updateRestOfPage = function() { };
+sciSingleSlider.prototype.setKnobAndCanvasSize = function(knob_width,knob_height,knob_fill_color,knob_stroke_color,knob_line_width)
+sciSingleSlider.prototype.setDivInContainer = function(container_id,div_left_offset,div_top_offset,div_width,div_height)
+sciSingleSlider.prototype.initialize = function(current_pixel)
+sciSingleSlider.prototype.draw = function()
+sciSingleSlider.prototype.endSlideAction = function(e)
+sciSingleSlider.prototype.defaultSlideAction = function(e)
+function sciCanvasButtons(unique_base_id,num_controls)
+  this.updateRestOfPage = function() { };
+  this.customDrawing = function() { };
+sciCanvasButtons.prototype.setFillColorIndexes = function(value) {
+sciCanvasButtons.prototype.setStrokeColorIndexes = function(value) {
+sciCanvasButtons.prototype.setLineWidths = function(value) {
+sciCanvasButtons.prototype.setCanvasInContainer = function(container_id,left_pix,top_pix,pix_width,pix_height) {  //--- (,,,,,background)
+sciCanvasButtons.prototype.initialize = function()
+sciCanvasButtons.prototype.defaultAction = function(e)
+sciCanvasButtons.prototype.draw = function()
+function sciCanvasRadioButtons(unique_base_id,num_controls)
+  this.updateRestOfPage = function() { };
+sciCanvasRadioButtons.prototype.setCanvasInContainer = function(container_id,left_pix,top_pix,pix_width,pix_height)
+sciCanvasRadioButtons.prototype.setSelectedOption = function(test_option)
+sciCanvasRadioButtons.prototype.initialize = function(selected_option)
+  this.button.updateRestOfPage = function()
+function binPalette(num_colors)
+binPalette.prototype.getColor = function(value)
+function rangePalette(num_colors)
+rangePalette.prototype.getColor = function(value)

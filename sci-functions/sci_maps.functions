@@ -1,0 +1,37 @@
+function angleSubtendedBetweenTwoSphCoordPts(lat1,lon1,lat2,lon2) {
+function distanceBetweenTwoLatLonPts(lat1,lon1,lat2,lon2,units) {
+function bearingBetweenTwoLatLonPts(lat1,lon1,lat2,lon2,units) {
+function pixToEquatorFromLat(zoom_level,lat) {
+function latFromPixToEquator(zoom_level,pix) {
+function getLatFromFractionOfInterval(lat1,lat2,fraction_1_to_2) {
+function getLonFromFractionOfInterval(lon1,lon2,fraction_1_to_2) {
+function latFromRefLatPlusPix(zoom_level,ref_lat,pixel_shift) {
+function lonFromRefLonPlusPix(zoom_level,ref_lon,pixel_shift) {
+function rectifyLon(lon) {
+function geoPtFromRefGeoPtPlusPix(zoom_level,ref_pt,pixel_shift_x,pixel_shift_y) {
+function yPixFromLat1ToLat2(zoom_level,lat1,lat2) {
+function xPixFromLon1ToLon2(zoom_level,lon1,lon2) {
+function onePixSigFigs(zoom_level,lat) {
+function geoPoint() {
+geoPoint.prototype.setValue = function() {
+function geoBox(wlon,nlat,elon,slat) {
+geoBox.prototype.setValue = function() {
+geoBox.prototype.latHeight = function() {
+geoBox.prototype.containsIDL = function() {
+geoBox.prototype.longWidth = function() {
+function mapBox() {
+mapBox.prototype.setDimensions = function() {
+mapBox.prototype.setMap = function() {
+mapBox.prototype.getXFromLon = function(lon,accuracy_mode) {
+mapBox.prototype.getYFromLat = function(lat,accuracy_mode) {
+mapBox.prototype.getScrPtFromGeoPt = function(loc,accuracy_mode) {
+mapBox.prototype.getLonFromX = function(x) {
+mapBox.prototype.getLatFromY = function(y) {
+mapBox.prototype.getGeoPtFromScrPt = function(pt) {
+mapBox.prototype.getWLon = function() {
+mapBox.prototype.getNLat = function() {
+mapBox.prototype.getELon = function() {
+mapBox.prototype.getSLat = function() {
+mapBox.prototype.getBoundingGeoBox = function() {
+mapBox.prototype.containsIDL = function()
+mapBox.prototype.confineToBoundingBox = function(container)

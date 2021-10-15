@@ -72,7 +72,7 @@ function getLonFromFractionOfInterval(lon1,lon2,fraction_1_to_2) {
 }
 
 //--older
-//function getLonFromFractionOfInterval(lon1,lon2,fraction) {
+//f u n c t i o n getLonFromFractionOfInterval(lon1,lon2,fraction) {
 //  return lon1 + (lon2-lon1)*fraction;
 //}
 
@@ -88,14 +88,15 @@ function lonFromRefLonPlusPix(zoom_level,ref_lon,pixel_shift) {
 }
 
 //--older
-//function lonFromRefLonPlusPix(zoom_level,ref_lon,pixel_shift,lon_mode) {
+//f u n c t i o n lonFromRefLonPlusPix(zoom_level,ref_lon,pixel_shift,lon_mode) {
 //  if(arguments.length==3)  var lon_mode = "-180to180";
 //  var pix_circumference = 256*Math.pow(2,zoom_level);
 //  var raw_lon = (ref_lon+360*(pixel_shift/pix_circumference));
 //  return shiftLon(raw_lon,lon_mode);
 //  }
 
-function rectifyLon(lon) {    //--extend to higher 'wrapping numbers'?
+//--extend to higher 'wrapping numbers'?
+function rectifyLon(lon) {
   if(lon>180)   { lon = -180+(lon-180)%360; }
   if(lon<=-180) { lon = 180-(-180-lon)%360; }
   return lon;
@@ -130,7 +131,7 @@ function xPixFromLon1ToLon2(zoom_level,lon1,lon2) {
   return delta_x;
 }
 
-//function lonFromRefLonPlusPix(zoom_level,ref_lon,lon_mode,pixel_shift) {
+//f u n c t i o n lonFromRefLonPlusPix(zoom_level,ref_lon,lon_mode,pixel_shift) {
 //  var pix_circumference = 256*Math.pow(2,zoom_level);
 //  var raw_lon = (ref_lon+360*(pixel_shift/pix_circumference));
 //  if(raw_lon>0)      return raw_lon-360;
@@ -140,7 +141,7 @@ function xPixFromLon1ToLon2(zoom_level,lon1,lon2) {
 //  return raw_lon;
 //  }
 
-//function shiftLon(lon,lon_mode) {
+//f u n c t i o n shiftLon(lon,lon_mode) {
 //  if(lon_mode=="-180to180") {
 //    if(lon>180)    lon = lon-360;
 //    if(lon<=-180)  lon = lon+360;
@@ -173,25 +174,25 @@ function onePixSigFigs(zoom_level,lat) {
 //----------------------------------------------------------------------------
 //  Old versions which were purged once.  Will probably get purged again, but 
 //  brought back temporarily until I can run unit testing and really give 
-//  all these functions a full work out.
+//  all this code a full work out.
 
 /*
-function yPixFromLatOnMap(zoom_level,center_lat,height,lat) {
+f u n c t i o n yPixFromLatOnMap(zoom_level,center_lat,height,lat) {
   var pix_to_equator_clat = pixToEquatorFromLat(zoom_level,center_lat);
   var pix_to_equator_lat = pixToEquatorFromLat(zoom_level,lat);
   return height/2+(pix_to_equator_clat-pix_to_equator_lat);
   }
 
-function xPixFromLonOnMap(zoom_level,center_lon,width,lon) {
+f u n c t i o n xPixFromLonOnMap(zoom_level,center_lon,width,lon) {
   var pixel_per_deg_lon = (256*Math.pow(2,zoom_level))/360;
   return width/2-pixel_per_deg_lon*(center_lon-lon);
   }
 
-function yPixFromRefLatPlusLat(zoom_level,ref_lat,lat) {
+f u n c t i o n yPixFromRefLatPlusLat(zoom_level,ref_lat,lat) {
   return yPixFromLatOnMap(zoom_level,ref_lat,0,lat);
   }
 
-function xPixFromRefLonPlusLon(zoom_level,ref_lon,lon) {
+f u n c t i o n xPixFromRefLonPlusLon(zoom_level,ref_lon,lon) {
   return xPixFromLonOnMap(zoom_level,ref_lon,0,lon);
   }
 */
@@ -202,14 +203,14 @@ Below is rough code from notes.  Syntax may need work.  Think about use of zoom 
 Needs to be done but odd.  There are two step math problems where zoom level does not effect the answer and yet you need to pick one
 to do the intermediate step?  Really?
 
-function latFromLatIntervalFraction(start_lat,end_lat,fraction) {
+f u n c t i o n latFromLatIntervalFraction(start_lat,end_lat,fraction) {
   var start_pix = pixToEquatorFromLat
   var end_pix = pixToEquatorFromLat
   var pix = start_pix + (end_pix-start_pix)*fraction;
   return latFromPixToEquator(zl,pix)
   }
 
-function lonFromLonIntervalFraction(start_lon,end_lon,fraction) {
+f u n c t i o n lonFromLonIntervalFraction(start_lon,end_lon,fraction) {
   just linear, except for IDL handling?
 
   need more IDL handling here anyway.  In QVS IDL problem addressed by just going from 180 to -180 

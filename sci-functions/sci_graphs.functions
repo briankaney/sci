@@ -1,0 +1,104 @@
+function value2DPt(x,y) {
+function valueRect(x1,y1,x2,y2) {
+valueRect.prototype.width = function() {
+valueRect.prototype.height = function() {
+valueRect.prototype.x_fraction = function(x) {
+valueRect.prototype.y_fraction = function(y) {
+function screenCartesian() {
+screenCartesian.prototype.setScreenRect = function(x_origin,y_origin,width,height) {
+screenCartesian.prototype.setCartesianRect = function(min_x,max_x,min_y,max_y) {
+screenCartesian.prototype.screenXFromCoordX = function(x) {
+screenCartesian.prototype.screenDelXFromCoordDelX = function(x) {
+screenCartesian.prototype.screenYFromCoordY = function(y) {
+screenCartesian.prototype.screenDelYFromCoordDelY = function(y) {
+screenCartesian.prototype.coordXFromScreenX = function(x) {
+screenCartesian.prototype.coordYFromScreenY = function(y) {
+screenCartesian.prototype.drawBackground = function(fill_color,ctx) {
+screenCartesian.prototype.drawGrid = function(num_x,num_y,line_color,ctx) {   
+screenCartesian.prototype.drawVertBar = function(x1,x2,fill_color,ctx) {   //  x1 and x2 are in coord values and not pixel values, that is key, should the name reflect this.  is another screen pixel centric f u n c t i o n worthwhile?  it won't need the conversions, but might still be more compact
+screenCartesian.prototype.drawVertLine = function(x,stroke_color,line_width,ctx) {   //  x is in coord values and not pixel values, that is key, blah blah
+screenCartesian.prototype.drawVertTic = function(x,y1,y2,stroke_color,line_width,ctx) {   //  x is in coord values and not pixel values, that is key, blah blah
+screenCartesian.prototype.drawHorizBar = function(y1,y2,fill_color,ctx) {
+screenCartesian.prototype.drawHorizLine = function(y,stroke_color,line_width,ctx) {   //  x is in coord values and not pixel values, that is key, blah blah
+screenCartesian.prototype.drawXText = function(str,x,align_mode,y_shift,font,text_color,ctx) {  //---again, x's will be in coord rel values
+function plotYPointsVsConstantXIntervals(canvas_id,rect,y_data,missing_thresh,first_x,last_x,symbol_style,symbol_type) {
+function plotLineSegments(canvas_id,rect,y_data,missing_thresh,first_x,last_x,line_style) {  //--probably should be method of line plotting object like before, but maybe in a different way.  I like the long arg list here allowing a lot of set-up on one line.  What vars do all plots have in common? only those should be part of the object.  For instance, they will all share a missing_thresh and overflow handling mode, right?
+function plotPointsIndependentXY(canvas_id,rect,x_data,y_data,missing_x_thresh,missing_y_thresh,symbol_style,symbol_type) {
+function plotLineSegmentsIndependentXY(canvas_id,rect,x_data,y_data,missing_x_thresh,missing_y_thresh,line_style) {
+function plotYShadedVsConstantXIntervals(canvas_id,rect,y_data,missing_thresh,first_x,last_x,shade_style) {  //---need more styles - 2 color, 1 line thick, 3 ocolor, text font and color, ccombos, etc
+function Point2D(x,y) {
+function ScreenRect(x_origin,y_origin,width,height) {
+function CartesianRect(x_units,min_x,max_x,y_units,min_y,max_y) {
+function CoordRect(x_units,x_type,min_x,max_x,y_units,y_type,min_y,max_y) {
+function ScreenCartesian() {
+ScreenCartesian.prototype.SetScreen = function(x_origin,y_origin,width,height) {
+ScreenCartesian.prototype.SetCartesian = function(x_units,min_x,max_x,y_units,min_y,max_y) {
+ScreenCartesian.prototype.ScrPtFromCoordPt = function(coord_pt) {
+ScreenCartesian.prototype.CoordPtFromScrPt = function(scr_pt) {
+function ScreenCoord() {
+ScreenCoord.prototype.SetScreen = function(x_origin,y_origin,width,height) {
+ScreenCoord.prototype.SetCoord = function(x_units,x_type,min_x,max_x,y_units,y_type,min_y,max_y) {
+ScreenCoord.prototype.ScrPtFromCoordPt = function(coord_pt) {
+ScreenCoord.prototype.CoordPtFromScrPt = function(scr_pt) {
+function LinePlot(line_width,line_color,symbol_type,symbol_color,missing_thresh) {
+LinePlot.prototype.DrawDepDataVsIndepData = function(canvas_id,rect,num_pts,first_x_value,last_x_value,y_data,mode) {
+LinePlot.prototype.DrawYDataVsXData = function(canvas_id,rect,num_pts,x_data,y_data) {
+function dataPalette(num_colors) {
+dataPalette.prototype.getColor = function(data_value) {
+function DataPalette(num_colors) {
+DataPalette.prototype.GetColor = function(data_value) {
+function ruler() {
+ruler.prototype.setRule = function(x_origin,y_origin,rule_length,orientation,color,rule_width) {
+ruler.prototype.setTics = function(num_major_div,major_tic_length,major_tic_width,num_minor_div,minor_tic_length,minor_tic_width) {
+ruler.prototype.setLabels = function(min_label,max_label,num_decimals,x_off,y_off,label_font,title_font,title) {
+ruler.prototype.drawRule = function(canvas_id) {
+ruler.prototype.drawTics = function(canvas_id) {
+ruler.prototype.drawLabels = function(canvas_id) {
+ruler.prototype.drawTitle = function(canvas_id) {
+ruler.prototype.drawAll = function(canvas_id) {
+function rectangleGrid(x,y,width,height,num_x,num_y) {
+rectangleGrid.prototype.setStyle = function(fill_color,grid_color,grid_line_width) {
+rectangleGrid.prototype.draw = function(canvas_id) {
+function rectanglePlotBlank(x,y,width,height,num_main_x,num_fine_x,num_main_y,num_fine_y,
+rectanglePlotBlank.prototype.draw = function(canvas_id) {
+rectanglePlotBlank.prototype.setOrigin = function(x,y) {
+rectanglePlotBlank.prototype.setDimensions = function(width,height) {
+rectanglePlotBlank.prototype.setGrids = function(num_main_x,num_main_y,num_fine_x,num_fine_y) {
+function timeRuler() {
+timeRuler.prototype.setRule = function(x_origin,y_origin,rule_length,rule_line_width,line_color) {
+timeRuler.prototype.setTics = function(major_tic_length,major_tic_width,minor_tic_length,minor_tic_width) {
+timeRuler.prototype.setTimes = function(origin_time,end_time,major_div_mode,minor_div_mode) {
+timeRuler.prototype.drawRule = function(canvas_id) {
+timeRuler.prototype.drawDayMinorTics = function(canvas_id) {
+timeRuler.prototype.hourLabel = function(ctx,label_time,label_x) {
+timeRuler.prototype.dayLabel = function(ctx,label_time,label_x) {
+timeRuler.prototype.dateLabel = function(ctx,label_time,label_x) {
+timeRuler.prototype.monYrLabel = function(ctx,label_time,label_x) {
+timeRuler.prototype.drawHourTics = function(canvas_id) {
+function minuteAxis() {
+minuteAxis.prototype.setRule = function(x_origin,y_origin,rule_length,rule_line_width,line_color) {
+minuteAxis.prototype.setTics = function(minor_tic_length,major_tic_length,tic_line_width) {
+minuteAxis.prototype.setTimes = function(origin_time,end_time,minor_div_minutes,major_div_minutes) {
+minuteAxis.prototype.drawAxis = function(canvas_id) {
+minuteAxis.prototype.drawDayAxis = function(canvas_id,day_div) {
+minuteAxis.prototype.drawMonthAxis = function(canvas_id) {
+minuteAxis.prototype.drawMultiMonthAxis = function(canvas_id) {
+minuteAxis.prototype.hourLabel = function(ctx,label_time,label_x) {
+minuteAxis.prototype.dayLabel = function(ctx,label_time,label_x) {
+minuteAxis.prototype.dateLabel = function(ctx,label_time,label_x) {
+function HistoBins(num_bins,min_value,max_value) {
+HistoBins.prototype.ImportBins = function(data) {
+HistoBins.prototype.BinData = function(num_data,data) {
+HistoBins.prototype.LogBinData = function(num_data,data) {
+HistoBins.prototype.NormalizeWeightByCnt = function() {
+HistoBins.prototype.NormalizeWeightByValue = function() {
+function HistoBins2D(num_x_bins,num_y_bins,min_x_value,min_y_value,max_x_value,max_y_value) {
+HistoBins2D.prototype.ImportBins = function(data) {
+HistoBins2D.prototype.BinData = function(num_data,x_data,y_data) {
+HistoBins2D.prototype.LogBinData = function(num_data,x_data,y_data) {
+HistoBins2D.prototype.Draw = function(canvas_id,screen,palette) {
+function valueBins(num_bins) {
+valueBins.prototype.fillBinsLinearlyViaFloatArray = function(min_value,max_value,data) {
+function valueBins2D(num_x_bins,num_y_bins) {
+valueBins2D.prototype.fillBinsLinearlyViaTwoFloatArrays = function(min_x_value,max_x_value,x_data,min_y_value,max_y_value,y_data) {
+valueBins2D.prototype.draw = function(canvas_id,screen,palette) {
