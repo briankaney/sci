@@ -156,15 +156,22 @@ function sciCanvasButtons(unique_base_id,num_controls)
 
   this.rect = new hotRectangles(this.num_controls);
 
+//--make sure there is default behavior for everything?
   this.colors = new Array();
   this.rect_fill_color_index = new Array();
   this.rect_stroke_color_index = new Array();
   this.rect_line_width = new Array();
+
+  this.fonts = new Array();
+  this.font_index = new Array();
+  this.text_color_index = new Array();
+
+// only default setting so far, why just these?
   this.setLineWidths(1);
 
   this.display_txt = new Array();
   this.x_indent = "center";
-  this.draw_rect = 1; 
+  this.draw_rect = 1;   //--are these still needed?  I was thinking to suppress these with color="" and font="" also.
   this.draw_text = 1; 
 
   this.updateRestOfPage = function() { };
@@ -182,6 +189,25 @@ sciCanvasButtons.prototype.setStrokeColorIndexes = function(value) {
 sciCanvasButtons.prototype.setLineWidths = function(value) {
   for(var i=0;i<this.num_controls;++i) { this.rect_line_width[i]=value; }
 };
+
+sciCanvasButtons.prototype.setFontIndexes = function(value) {
+  for(var i=0;i<this.num_controls;++i) { this.font_index[i]=value; }
+};
+
+sciCanvasButtons.prototype.setTextColorIndexes = function(value) {
+  for(var i=0;i<this.num_controls;++i) { this.text_color_index[i]=value; }
+};
+
+/*   not in use yet, still thinking about this, or something like this?
+sciCanvasButtons.prototype.setCellDesign = function(fc,sc,tc,tf,lw)
+{
+  if(fc>=0) { this.setFillColorIndexes(fc); }
+  if(sc>=0) { this.setStrokeColorIndexes(sc); }
+  if(tc>=0) { this.setTextColorIndexes(tc); }
+  if(tf>=0) { this.setFontIndexes(tf); }
+  if(lw>=0) { this.setLineWidths(lw); }
+};
+*/
 
 sciCanvasButtons.prototype.setCanvasInContainer = function(container_id,left_pix,top_pix,pix_width,pix_height) {  //--- (,,,,,background)
   if(arguments.length==6) { createCanvas(container_id,left_pix,top_pix,this.unique_base_id,pix_width,pix_height,arguments[5]); }
@@ -214,9 +240,12 @@ sciCanvasButtons.prototype.draw = function()
 
   if(this.draw_rect==1)
   {
-    for(var i=0;i<this.num_controls;++i) {
+    for(var i=0;i<this.num_controls;++i)
+    {
       var style = new shapeStyle(this.colors[this.rect_fill_color_index[i]],this.colors[this.rect_stroke_color_index[i]],this.rect_line_width[i]);
       drawCanvasConfinedRect(this.rect.left_x[i],this.rect.top_y[i],this.rect.width[i]+1,this.rect.height[i]+1,style,this.unique_base_id);
+//  try out the following, this was an 'improvement' made for empe.  what does it do exactly?  makes the '+1' above unneeded.
+//      drawCanvasCleanBoundedRect(this.rect.left_x[i],this.rect.top_y[i],this.rect.width[i],this.rect.height[i],style,this.unique_base_id);
     }
   }
 
@@ -226,9 +255,11 @@ sciCanvasButtons.prototype.draw = function()
   {
     for(var i=0;i<this.num_controls;++i)
     {
-      var style = new textStyle("bold 11pt arial","#000000");
+      var style = new textStyle(this.fonts[this.font_index[i]],this.colors[this.text_color_index[i]]);
+//      var style = new textStyle("bold 11pt arial","#000000");
 //      drawCanvasFixedLabel(this.display_txt[i],this.rect.left_x[i],this.rect.top_y[i],this.x_indent,this.rect.width[i]+1,this.rect.height[i]+1,style,this.unique_base_id);
       drawCanvasLabel(this.display_txt[i],this.rect.left_x[i]+this.rect.width[i]/2,this.rect.top_y[i]+this.rect.height[i]/2,this.x_indent,"center",style,this.unique_base_id);
+//  Huh?? The value of this.x_indent is 'center', so the string 'center' is being sent twice in two conseq args - needs clean up.
     }
   }
 };
@@ -239,9 +270,17 @@ sciCanvasButtons.prototype.draw = function()
 function sciCanvasRadioButtons(unique_base_id,num_controls)
 {
   this.button = new sciCanvasButtons(unique_base_id,num_controls);
-  this.button.colors = ["#888888","#FFFFFF","#DDDDDD","#BBEEFF","#000000"];
-  this.button.setFillColorIndexes(1);
+
+  this.button.colors = ["#AAAAAA","#FFFFFF","#DDDDDD","#BBEEFF","#000000","#DDDDDD","#000000"];
+//  color array has no meaningful order in the sciCanvasButtons obj, it is just a list of all the colors you want to use in any order.
+//  Order is set here: inactive fill color, active but not hovered or selected, active and hovered over, selected,stroke color, inactive text, active text
+//  still might need more/better named setting functions for times when you want to not use the defaults
+  this.button.fonts = ["11pt arial"];
+
+//  only needed here since they are not set in 'setButtonStyleWithoutHover'.  so these will be fixed for all implementations of sciCanvasRadioButtons
+//  To vary that, I'll need to move these from here to 'setButtonStyleWithoutHover'.
   this.button.setStrokeColorIndexes(4);
+  this.button.setFontIndexes(0);
 
   this.selected_index=0;
   this.selected_option;
@@ -253,6 +292,7 @@ function sciCanvasRadioButtons(unique_base_id,num_controls)
   this.updateRestOfPage = function() { };
 }
 
+//  get rid of this?  duplicate of button.setCanvasInContainer that already exists
 sciCanvasRadioButtons.prototype.setCanvasInContainer = function(container_id,left_pix,top_pix,pix_width,pix_height)
 {  //--- (,,,,,background)
   if(arguments.length==6) { this.button.setCanvasInContainer(container_id,left_pix,top_pix,pix_width,pix_height,arguments[5]); }
@@ -263,25 +303,25 @@ sciCanvasRadioButtons.prototype.setSelectedOption = function(test_option)
 {
   var test_index = findIndex(this.options,test_option);
   if(test_index>=0)
-  {
+  {     //--need to handle 'error' of trying to set an inactive option as selected (just activate it?, probably not)
     this.selected_index = test_index;
     this.selected_option = test_option;
-    this.button.setFillColorIndexes(1);
-    this.button.rect_fill_color_index[this.selected_index]=3;
   }
 };
 
 sciCanvasRadioButtons.prototype.initialize = function(selected_option)
-{
+{  //--make this arg optional?
   this.setSelectedOption(selected_option);
 
   this.button.initialize();   //--No new event listeners, just these.  Includes button.draw() call.
+  this.draw();
 
   var that = this;
   this.button.updateRestOfPage = function()
   {
     if(this.event_type=="mousedown" && this.current_hover_index>=0) {
       that.setSelectedOption(that.options[this.current_hover_index]);
+      this.current_hover_index=-1;
       that.updateRestOfPage();
     }
 
@@ -292,10 +332,28 @@ sciCanvasRadioButtons.prototype.initialize = function(selected_option)
       document.getElementById(this.unique_base_id).style.cursor = "pointer";
     }
 
-    this.setFillColorIndexes(1);
-    if(this.current_hover_index>=0) { this.rect_fill_color_index[this.current_hover_index]=2; }
-    this.rect_fill_color_index[that.selected_index]=3;
-    this.draw();
+    that.draw();
   };
+};
+
+sciCanvasRadioButtons.prototype.setButtonStyleWithoutHover = function()
+{
+  this.button.setFillColorIndexes(1);
+  this.button.setTextColorIndexes(6);
+  for(var i=0;i<this.button.num_controls;++i) {
+    if(this.button.rect.active[i]==0) {
+      this.button.rect_fill_color_index[i]=0;
+      this.button.text_color_index[i]=5;
+    }
+  }
+  this.button.rect_fill_color_index[this.selected_index]=3;
+};
+
+sciCanvasRadioButtons.prototype.draw = function() {
+    this.setButtonStyleWithoutHover();
+    if(this.button.current_hover_index>=0 && this.button.current_hover_index!=this.selected_index) {
+      this.button.rect_fill_color_index[this.button.current_hover_index]=2; 
+    }
+    this.button.draw();
 };
 
