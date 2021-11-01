@@ -1059,7 +1059,7 @@ Ruler.prototype.DrawLogAll = f u n c t i o n(canvas_id) {
 */
 
 //  Three versions merged together.  I think the first is the latest.  It uses all lower case letters
-//  to start funciton names.  And has much fewer args for the main object.  Those items are set later.
+//  to start f u n c t i o n names.  And has much fewer args for the main object.  Those items are set later.
 
 function rectangleGrid(x,y,width,height,num_x,num_y) {
   this.origin = new screenPoint(x,y);
@@ -1068,7 +1068,7 @@ function rectangleGrid(x,y,width,height,num_x,num_y) {
   this.num_x = num_x;
   this.num_y = num_y;
 
-  this.grid_style = new drawStyle('#FFFFFF','#000000',1,'','');
+  this.grid_style = new shapeStyle('#FFFFFF','#000000',1);
 
   this.x_shift = 0;
   this.y_shift = 0;
@@ -1112,7 +1112,7 @@ rectangleGrid.prototype.draw = function(canvas_id) {
     }
   };
 
-//-----------Start of version 2.  Still has lower case letters to start f u n c t i o n names.  Does not use drawStyle and has a ton
+//-----------Start of version 2.  Still has lower case letters to start f u n c t i o n names.  Does not use draw Style and has a ton
 //  of args to call the main object
 
 /*
