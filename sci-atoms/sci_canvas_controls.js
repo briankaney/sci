@@ -229,6 +229,9 @@ sciCanvasButtons.prototype.defaultAction = function(e)
 
   this.event_type = e.type;
   this.current_hover_index = this.rect.getIndex(pt);
+//-----FIX  ??  why doesn't above code catch this - need to really test in a template page
+  if(e.type=="mouseout") { this.current_hover_index = -1; }
+//----
 
   if(this.current_hover_index!=this.last_hover_index || this.event_type!="mousemove") { this.updateRestOfPage(); }
   this.last_hover_index = this.current_hover_index;
@@ -258,8 +261,18 @@ sciCanvasButtons.prototype.draw = function()
       var style = new textStyle(this.fonts[this.font_index[i]],this.colors[this.text_color_index[i]]);
 //      var style = new textStyle("bold 11pt arial","#000000");
 //      drawCanvasFixedLabel(this.display_txt[i],this.rect.left_x[i],this.rect.top_y[i],this.x_indent,this.rect.width[i]+1,this.rect.height[i]+1,style,this.unique_base_id);
-      drawCanvasLabel(this.display_txt[i],this.rect.left_x[i]+this.rect.width[i]/2,this.rect.top_y[i]+this.rect.height[i]/2,this.x_indent,"center",style,this.unique_base_id);
-//  Huh?? The value of this.x_indent is 'center', so the string 'center' is being sent twice in two conseq args - needs clean up.
+
+
+      if(this.x_indent=="center") {
+        drawCanvasLabel(this.display_txt[i],this.rect.left_x[i]+this.rect.width[i]/2,this.rect.top_y[i]+this.rect.height[i]/2,this.x_indent,"center",style,this.unique_base_id);
+      }
+      else {
+        drawCanvasLabel(this.display_txt[i],this.rect.left_x[i]+this.x_indent,this.rect.top_y[i]+this.rect.height[i]/2,0,"center",style,this.unique_base_id);
+      }
+//  Some weirdness to fix.  Need to clean up the underlying 'drawLabel' options that this will be based on.  As it is, if this.x_indent is 'center' then 'drawCanvasLabel'
+//  gets called with 'center' as both the x offset and y offset args.  But 'drawCanvasLabel' doesn't know how wide the button is - the half width value is used 
+//  before the call to place the start x in the middle of the button to begin with.  But you don't want this is x_indent is just a number.  Then you don't care 
+//  how wide the button is
     }
   }
 };
