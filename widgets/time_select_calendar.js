@@ -35,7 +35,7 @@ function calendarSelect()
 
   this.num_rows = [2,3,6,4,2];
   this.num_columns = [5,4,7,6,6];
-  this.button_height = [22,22,20,22,20];
+  this.button_height = [22,22,20,20,20];
   this.button_width  = [42,52.5,30,35,35];
 
   this.num_buttons = new Array(5);
@@ -137,15 +137,16 @@ calendarSelect.prototype.initialize = function()
 {
   var that = this;
 
-  for(var i=0;i<this.num_fields;++i) {
+  for(var i=0;i<5;++i) {
     this.t_obj[i] = new sciCanvasRadioButtons(this.cal_field_canvas_id[i],this.num_buttons[i]);
-    this.t_obj[i].button.colors[0] = "#FFFFFF";    //--need a set of more descriptive setting functions
+    this.t_obj[i].button.colors[0] = "#FFFFFF";
     this.t_obj[i].button.colors[4] = "";
     this.t_obj[i].button.fonts[0] = "10pt arial";
     this.t_obj[i].button.rect.setAsBlockOfColumns(this.horiz_padding,this.vert_padding,this.num_columns[i],
                   this.button_width[i],this.button_height[i]);
     this.t_obj[i].setCanvasInContainer(this.main_div_id,0,this.time_field_top_y[i],this.time_field_width,
                   this.time_field_height[i],this.time_field_padding_color);
+    if(i>=this.num_fields) { document.getElementById(this.cal_field_canvas_id[i]).style.visibility = "hidden"; }
   }
 
   this.t_obj[0].updateRestOfPage = function()
