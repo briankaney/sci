@@ -303,6 +303,7 @@ function sciCanvasRadioButtons(unique_base_id,num_controls)
 //  this.state_change = 0;
 
   this.updateRestOfPage = function() { };
+  this.hoverAction = function() { };
 }
 
 //  get rid of this?  duplicate of button.setCanvasInContainer that already exists
@@ -337,6 +338,7 @@ sciCanvasRadioButtons.prototype.initialize = function(selected_option)
       this.current_hover_index=-1;
       that.updateRestOfPage();
     }
+    if(this.event_type=="mousemove") { that.hoverAction(); }
 
     if(this.current_hover_index==-1 || this.current_hover_index==that.selected_index) {
       document.getElementById(this.unique_base_id).style.cursor = "default";

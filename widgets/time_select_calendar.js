@@ -147,6 +147,10 @@ calendarSelect.prototype.initialize = function()
     this.t_obj[i].setCanvasInContainer(this.main_div_id,0,this.time_field_top_y[i],this.time_field_width,
                   this.time_field_height[i],this.time_field_padding_color);
     if(i>=this.num_fields) { document.getElementById(this.cal_field_canvas_id[i]).style.visibility = "hidden"; }
+
+    this.t_obj[i].hoverAction = function() {
+      that.updateAndDrawCalendar();
+    };
   }
 
   this.t_obj[0].updateRestOfPage = function()
