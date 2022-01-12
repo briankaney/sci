@@ -87,7 +87,7 @@ screenCartesian.prototype.drawBackground = function(fill_color,ctx) {
 
 screenCartesian.prototype.drawGrid = function(num_x,num_y,line_color,ctx) {   
 /*  There is an old RectangleGrid object much farther down.  Is it still needed (probably)?  If so how
-    could it dovetail with this?  This is so much shorter than the old object.  Why is it so big?  */
+    could it dovetail with this?  This is so much shorter than the old object.  Why was it so big?  */
 
   ctx.strokeStyle = line_color;
   for(var i=0;i<=num_x;++i) {
@@ -98,19 +98,21 @@ screenCartesian.prototype.drawGrid = function(num_x,num_y,line_color,ctx) {
     }
   };
 
-screenCartesian.prototype.drawVertBar = function(x1,x2,fill_color,ctx) {   //  x1 and x2 are in coord values and not pixel values, that is key, should the name reflect this.  is another screen pixel centric f u n c t i o n worthwhile?  it won't need the conversions, but might still be more compact
+//  All x's and y's in next seven methods are in coord values and not pixel values.  A key feature - should the names reflect this?
+//  Is another set of screen pixel centric methods worthwhile?  Prob not, but they won't have all the coversions and could be more
+//  compact - is there a compelling use case.  
+screenCartesian.prototype.drawVertBar = function(x1,x2,fill_color,ctx) {
   ctx.fillStyle = fill_color;
   ctx.fillRect(this.screenXFromCoordX(x1-this.coord.x1),this.screen.y2,this.screenDelXFromCoordDelX(x2-x1),this.screen.y1-this.screen.y2);
   };
 
-screenCartesian.prototype.drawVertLine = function(x,stroke_color,line_width,ctx) {   //  x is in coord values and not pixel values, that is key, blah blah
+screenCartesian.prototype.drawVertLine = function(x,stroke_color,line_width,ctx) {
   ctx.lineWidth = line_width;
   ctx.strokeStyle = stroke_color;
-  drawLine(this.screenXFromCoordX(x-this.coord.x1),this.screen.y1,this.screenXFromCoordX(x-this.coord.x1),this.screen.y2,ctx);
-//change to 'CleanVertLine'
+  drawCleanVertLine(this.screenXFromCoordX(x-this.coord.x1),this.screen.y1,this.screen.y2,ctx);
   };
 
-screenCartesian.prototype.drawVertTic = function(x,y1,y2,stroke_color,line_width,ctx) {   //  x is in coord values and not pixel values, that is key, blah blah
+screenCartesian.prototype.drawVertTic = function(x,y1,y2,stroke_color,line_width,ctx) {
   ctx.lineWidth = line_width;
   ctx.strokeStyle = stroke_color;
   drawCleanVertLine(this.screenXFromCoordX(x-this.coord.x1),this.screen.y1-y1,this.screen.y1-y2,ctx);
@@ -121,22 +123,20 @@ screenCartesian.prototype.drawHorizBar = function(y1,y2,fill_color,ctx) {
   ctx.fillRect(this.screen.x1,this.screenYFromCoordY(y1-this.coord.y1),this.screen.x2-this.screen.x1,this.screenDelYFromCoordDelY(y2-y1));
   };
 
-//---another verion of the above from another file.  Claims to not be tested yet.  It was already commented out in the other location.  2nd line is much less complicated
-/*  not tested yet, just needed for completeness
+/*  This is a pix centric version from another file (see note above on coord vs pix values). Purge or pursue further.
 screenCartesian.prototype.drawHorizBar = f u n c t i o n(y1,y2,fill_color,ctx) {
   ctx.fillStyle = fill_color;
   ctx.fillRect(this.screen.x1,y1,this.screen.height,y2-y1);
   };
 */
 
-screenCartesian.prototype.drawHorizLine = function(y,stroke_color,line_width,ctx) {   //  x is in coord values and not pixel values, that is key, blah blah
+screenCartesian.prototype.drawHorizLine = function(y,stroke_color,line_width,ctx) {
   ctx.lineWidth = line_width;
   ctx.strokeStyle = stroke_color;
-//  drawCleanHorizLine(this.screen.x1,this.screen.x2,this.screenYFromCoordY(y-this.coord.y1),ctx);
-  drawCleanHorizLine(this.screen.x1,this.screen.x2,this.screenYFromCoordY(y),ctx);
+  drawCleanHorizLine(this.screen.x1,this.screen.x2,this.screenYFromCoordY(y-this.coord.y1),ctx);
   };
 
-screenCartesian.prototype.drawXText = function(str,x,align_mode,y_shift,font,text_color,ctx) {  //---again, x's will be in coord rel values
+screenCartesian.prototype.drawXText = function(str,x,align_mode,y_shift,font,text_color,ctx) {
   ctx.fillStyle = text_color;
   ctx.font = font;
   if(align_mode=="center")  ctx.fillText(str,this.screenXFromCoordX(x-this.coord.x1)-ctx.measureText(str).width/2,this.screen.y1-y_shift);
@@ -939,9 +939,9 @@ ruler.prototype.drawTitle = function(canvas_id) {
     ctx.save();
 
 //--only one of these was active at a time.  fix this mess.
-    ctx.translate(this.x_origin-46,this.y_origin-this.rule_length/2+ctx.measureText(this.title).width/2);
+//    ctx.translate(this.x_origin-46,this.y_origin-this.rule_length/2+ctx.measureText(this.title).width/2);
 //    ctx.translate(this.x_origin-64,this.y_origin-this.rule_length/2+ctx.measureText(this.title).width/2);
-//    ctx.translate(this.x_origin+this.temp_hard_y_shift-52,this.y_origin-this.rule_length/2+ctx.measureText(this.title).width/2);
+    ctx.translate(this.x_origin+this.temp_hard_y_shift-58,this.y_origin-this.rule_length/2+ctx.measureText(this.title).width/2);
 //-------------
 
     ctx.rotate(-0.5*Math.PI);
@@ -964,13 +964,6 @@ ruler.prototype.drawAll = function(canvas_id) {
 
   return;
   };
-
-//    Removed at some point after I added the generic canvasClear method.  Not called elsewhere within this lib, so purging
-//    this does not change dependency of this lib on others
-//Ruler.prototype.ClearCanvas = f u n c t i o n(canvas_id) {
-//  var ctx = document.getElementById(canvas_id).getContext('2d');
-//  ctx.clearRect(0,0,document.getElementById(canvas_id).width,document.getElementById(canvas_id).height);
-//  }
 
 /*
 Ruler.prototype.DrawLogTics = f u n c t i o n(canvas_id) {
@@ -1245,6 +1238,8 @@ RectangleGrid.prototype.Draw = f u n c t i o n(canvas_id) {
 */
 
 
+//----------------------------------------------------------------------------
+
 function rectanglePlotBlank(x,y,width,height,num_main_x,num_fine_x,num_main_y,num_fine_y,
                             main_line_width,main_color,fine_line_width,fine_color,main_tic_len,fine_tic_len,frame_color,back_color) {
   this.main_title = "";
@@ -1280,8 +1275,6 @@ rectanglePlotBlank.prototype.draw = function(canvas_id) {
 
   return;
   };
-
-//----------------------------------------------------------------------------
 
 rectanglePlotBlank.prototype.setOrigin = function(x,y) {
   this.origin.x = x;
@@ -1327,6 +1320,7 @@ rectanglePlotBlank.prototype.setGrids = function(num_main_x,num_main_y,num_fine_
   return;
   };
 
+//----------------------------------------------------------------------------
 
 
 function timeRuler() {
