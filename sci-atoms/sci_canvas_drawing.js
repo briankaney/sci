@@ -45,61 +45,100 @@ function extendVertLine(x,y,distance,ctx) {
   drawCleanVertLine(x,y,y-distance,ctx);
 }
 
-function shapeStyle(fill_color,stroke_color,line_width)
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+    //  0 or 2 arg version: () or (stroke_color,line_width)
+function lineStyle()
 {
-  this.fill_color = fill_color;
+  if(arguments.length==2) { this.stroke_color = arguments[0];  this.line_width = arguments[1]; }
+  else { this.stroke_color = "#000000";  this.line_width = 1; }
+}
+
+lineStyle.prototype.set = function(stroke_color,line_width)
+{
   this.stroke_color = stroke_color;
   this.line_width = line_width;
+};
+
+    //  0 or 3 arg version: () or (fill_color,stroke_color,line_width)
+function shapeStyle()
+{
+  if(arguments.length==3) {
+    this.fill_color = arguments[0];
+    this.line = new lineStyle(arguments[1],arguments[2]);
+  }
+  else {
+    this.fill_color = "#FFFFFF";
+    this.line = new lineStyle();
+  }
 }
 
 shapeStyle.prototype.set = function(fill_color,stroke_color,line_width)
 {
   this.fill_color = fill_color;
-  this.stroke_color = stroke_color;
-  this.line_width = line_width;
+  this.line.set(stroke_color,line_width);
 };
 
-function textStyle(font,text_color)
+    //  0 or 4 arg version: () or (font,text_color,h_align,v_align)
+function textStyle()
 {
-  this.font = font;
-  this.text_color = text_color;
+  if(arguments.length==3) {
+    this.font = arguments[0];
+    this.text_color = arguments[1];
+    this.h_align = arguments[2];
+    this.v_align = arguments[3];
+  }
+  else {
+    this.font = "normal 12pt arial";
+    this.text_color = "#000000";
+    this.h_align = "left";
+    this.v_align = "bottom";
+  }
 }
 
-textStyle.prototype.set = function(font,text_color)
+textStyle.prototype.set = function(font,text_color,h_align,v_align)
 {
   this.font = font;
   this.text_color = text_color;
+  this.h_align = h_align;
+  this.v_align = v_align;
 };
 
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 
-function drawCanvasLine(x1,y1,x2,y2,style,canvas_id,ctx)
+function drawCanvasLine(x1,y1,x2,y2,line_style,canvas_id,ctx)
 {
   if(arguments.length==6) { var ctx = document.getElementById(canvas_id).getContext('2d'); }
-  ctx.strokeStyle = style.stroke_color;
-  ctx.lineWidth = style.line_width;
+  ctx.strokeStyle = line_style.stroke_color;
+  ctx.lineWidth = line_style.line_width;
 
   drawLine(x1,y1,x2,y2,ctx);
 }
 
-function drawCanvasRect(left_x,top_y,width,height,style,canvas_id,ctx)
-{  //--rename as 'Clean' version and add ooch variable.  do I need a non-clean version, test it out 
+function drawCanvasRect(left_x,top_y,width,height,shape_style,canvas_id,ctx)
+{    //--rename as 'Clean' version and add ooch variable.  do I need a non-clean version, test it out?
+     //  [old note above: do not add 'ooch' here, but call 'clean' subs - push logic to lower levels of code.)
   if(arguments.length==6)  { var ctx = document.getElementById(canvas_id).getContext('2d'); }
-  if(style.fill_color!='') { ctx.fillStyle = style.fill_color; }
-  if(style.stroke_color!='') { ctx.strokeStyle = style.stroke_color; }
-  ctx.lineWidth = style.line_width;
+  if(shape_style.fill_color!='') { ctx.fillStyle = shape_style.fill_color; }
+  if(shape_style.line.stroke_color!='') { ctx.strokeStyle = shape_style.line.stroke_color; }
+  ctx.lineWidth = shape_style.line_width;
 
-  if(style.fill_color!='') { ctx.fillRect(Math.round(left_x),Math.round(top_y),Math.round(width-1),Math.round(height-1)); }
-  if(style.stroke_color!='') { ctx.strokeRect(Math.round(left_x)+0.5,Math.round(top_y)+0.5,Math.round(width-1),Math.round(height-1)); }
+  if(shape_style.fill_color!='') {
+    ctx.fillRect(Math.round(left_x),Math.round(top_y),Math.round(width-1),Math.round(height-1));
+  }
+  if(shape_style.line.stroke_color!='') {
+    ctx.strokeRect(Math.round(left_x)+0.5,Math.round(top_y)+0.5,Math.round(width-1),Math.round(height-1));
+  }
 }
 
 function drawCanvasCircle(x,y,radius,style,canvas_id,ctx)
 {
   if(arguments.length==5) { var ctx = document.getElementById(canvas_id).getContext('2d'); }
   if(style.fill_color!='') { ctx.fillStyle   = style.fill_color; }
-  if(style.stroke_color!='') { ctx.strokeStyle = style.stroke_color; }
-  ctx.lineWidth = style.line_width;
+  if(style.stroke_color!='') { ctx.strokeStyle = style.line.stroke_color; }
+  ctx.lineWidth = style.line.line_width;
 
   ctx.beginPath();
   ctx.arc(x,y,radius,0,Math.PI*2,true);
@@ -107,9 +146,42 @@ function drawCanvasCircle(x,y,radius,style,canvas_id,ctx)
   if(style.stroke_color!='') { ctx.stroke(); }
 }
 
+function drawCanvasText(text,x,y,style,canvas_id,ctx)
+{
+  if(arguments.length==5) { var ctx = document.getElementById(canvas_id).getContext('2d'); }
+  ctx.fillStyle = style.text_color;
+  ctx.font = style.font;
+  if(style.h_align=="left")   { var x_offset = 0; }
+  if(style.h_align=="center") { var x_offset = -1*ctx.measureText(text).width/2; }
+  if(style.h_align=="right")  { var x_offset = -1*ctx.measureText(text).width; }
+  if(style.v_align=="bottom") { var y_offset = 0; }
+  if(style.v_align=="center") { var y_offset = approxFontHeight(style.font)/2; }
+  if(style.v_align=="top")    { var y_offset = approxFontHeight(style.font); }
+  ctx.fillText(text,x+x_offset,y+y_offset);
+}
+
+function drawCanvasVerticalText(text,x,y,style,canvas_id,ctx)
+{
+  if(arguments.length==5) { var ctx = document.getElementById(canvas_id).getContext('2d'); }
+  ctx.fillStyle = style.text_color;
+  ctx.font = style.font;
+  if(style.h_align=="left")   { var x_offset = 0; }
+  if(style.h_align=="center") { var x_offset = -1*ctx.measureText(text).width/2; }
+  if(style.h_align=="right")  { var x_offset = -1*ctx.measureText(text).width; }
+  if(style.v_align=="bottom") { var y_offset = 0; }
+  if(style.v_align=="center") { var y_offset = approxFontHeight(style.font)/2; }
+  if(style.v_align=="top")    { var y_offset = approxFontHeight(style.font); }
+
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.rotate(-0.5*Math.PI);
+  ctx.fillText(text,x_offset,y_offset);
+  ctx.restore();
+}
 
 
 
+//  changes to shapeStyle may not be reflected in code past this point
 
 function drawCanvasConfinedRect(left_x,top_y,width,height,style,canvas_id)
 {
@@ -189,21 +261,8 @@ labelStyle.prototype.set = function(fill_color,stroke_color,line_width,font,text
   this.text_color = text_color;
 };
 
-//  Below is now just a wrapper for ctx.fillText().  Basically allows one to call fillText for canvas drawing 
-//  for any canvas by id without needing to define a ctx context;
-
-function drawCanvasText(text,x,y,style,canvas_id,ctx)
-{
-  if(arguments.length==5) { var ctx = document.getElementById(canvas_id).getContext('2d'); }
-
-  ctx.fillStyle = style.text_color;
-  ctx.font = style.font;
-  ctx.fillText(text,x,y);
-}
-
-/*   2021 change, replaced the one below with thee simpler one above.  the one below needs to be revived with a new name.  it has value
-     added beyone the one above.  where (if anywhere) is it used?
-*/
+/*   2021-2022 notes: mix of older stuff follows.  Drawing of 'labels' has not been fully reworked since I started
+     adding labelStyle and textStyle (and 'align') and other improvements at lower levels.  */
 
 function drawCanvasLabel(text,x,y,x_offset,y_offset,style,canvas_id,ctx)
 {
