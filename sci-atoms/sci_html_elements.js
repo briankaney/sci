@@ -300,6 +300,7 @@ function sciDDMenu(unique_base_id,selected_option)
   this.font_size = "9pt";
   this.divider_text_color = "#000099";
 
+//--think about lack of defaults and error checking.  What if selected_option is not in the options, what if don't want to specify if and you are fine defaulting the first option being active.
   this.selected_option = selected_option;
   this.selected_index;
   this.options = new Array();
@@ -327,11 +328,18 @@ sciDDMenu.prototype.initialize = function()
   document.getElementById(this.input_id).addEventListener('change',this.ddMenuHandler.bind(this),false);
 };
 
-
 sciDDMenu.prototype.resetSelectedOption = function(new_selected_option)
 {
-  this.selected_option = new_selected_option
+  this.selected_option = new_selected_option;     //--need error checking
   this.selected_index = this.getIndexOfSelectedOption();
+  document.getElementById(this.div_id).innerHTML = this.composeDDHTML();
+  document.getElementById(this.input_id).addEventListener('change',this.ddMenuHandler.bind(this),false);
+};
+
+sciDDMenu.prototype.resetSelectedIndex = function(new_selected_index)
+{
+  this.selected_index = new_selected_index;      //--need error checking, need a boundBy function:  boundBy(new_selected_index,0,this.num_items),  the last thing is not part of the object - need to add a way to return number of options? ( I guess 'this.options.length' works)
+  this.selected_option = this.options[this.selected_index];
   document.getElementById(this.div_id).innerHTML = this.composeDDHTML();
   document.getElementById(this.input_id).addEventListener('change',this.ddMenuHandler.bind(this),false);
 };
@@ -348,6 +356,7 @@ sciDDMenu.prototype.getIndexOfSelectedOption = function()
   for(var i=0;i<this.options.length;++i) {
     if(this.selected_option == this.options[i]) { return i; }
   }
+  return 0;
 };
 
 sciDDMenu.prototype.composeDDHTML = function()
