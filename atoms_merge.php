@@ -10,7 +10,7 @@
   if($argc==1)
   {
     print "\n\nUsage:\n";
-    print "  atoms_merge.php atom_base_dir list_file path/output_file\n\n";
+    print "  atoms_merge.php path/input_atom_dir path/list_file path/output_merged_file\n\n";
 
     print "Examples:\n";
     print "  ./atoms_merge.php sci-atoms/ sci_general.prj sci-compounds/sci_general.js\n\n";

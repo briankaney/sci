@@ -10,7 +10,7 @@
   if($argc==1)
   {
     print "\n\nUsage:\n";
-    print "  atoms_divide.php path/list_file path/input_file\n\n";
+    print "  atoms_divide.php path/output_atom_dir/ path/list_file path/input_merged_file\n\n";
 
     print "Examples:\n";
     print "  ./atoms_divide.php sci-atoms/ sci_general.prj ./sci-compounds/sci_general.js\n\n";
